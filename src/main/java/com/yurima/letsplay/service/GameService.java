@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @Service
@@ -75,5 +76,14 @@ public class GameService {
 
     public void deleteGame(String id) {
         repository.deleteById(id);
+    }
+
+    public GameView getRandom() {
+        final long count = repository.count();
+        final long random = ThreadLocalRandom.current().nextLong(count);
+        return repository.getByOffset(random)
+                .map(mapper::fromModel)
+                .orElse(null);
+
     }
 }

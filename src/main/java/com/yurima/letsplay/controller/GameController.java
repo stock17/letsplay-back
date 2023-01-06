@@ -4,7 +4,6 @@ import com.yurima.letsplay.dto.GameView;
 import com.yurima.letsplay.dto.OperationReport;
 import com.yurima.letsplay.service.GameService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -64,5 +63,10 @@ public class GameController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=export.xlsx")
                 .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
                 .body(bytes);
+    }
+
+    @GetMapping(value = "/random")
+    public GameView getRandom() {
+        return gameService.getRandom();
     }
 }
